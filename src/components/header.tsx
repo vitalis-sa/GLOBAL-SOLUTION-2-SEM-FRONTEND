@@ -20,6 +20,7 @@ export function Header() {
     { to: "/pacientes", label: "Pacientes" },
     { to: "/cadastrar", label: "Cadastrar" },
     { to: "/consultas/cadastro", label: "Agendar" },
+    { to: "/funcionarios/cadastro", label: "Novo Func." }, // <-- Link Adicionado
     { to: "/contato", label: "Contato" },
   ];
 
