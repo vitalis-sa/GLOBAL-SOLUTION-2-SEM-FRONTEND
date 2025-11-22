@@ -88,7 +88,7 @@ export function FuncionarioForm() {
       
       alert("Funcionário cadastrado com sucesso!");
       reset();
-      navigate("/funcionarios/cadastroTesteSituacao"); // Ou para a lista de funcionários
+      navigate("/login"); // Ou para a lista de funcionários
       
     } catch (error) {
       console.error(error);

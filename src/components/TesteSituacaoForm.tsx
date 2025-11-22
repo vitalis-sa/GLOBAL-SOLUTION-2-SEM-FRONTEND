@@ -45,7 +45,7 @@ export function TesteSituacaoForm() {
       alert("Teste de Situação registrado com sucesso! A IA analisou os dados.");
       reset();
       // Redireciona para a página de detalhes do funcionário logado ou home
-      navigate(`/pacientes/${user.id}`); 
+      navigate(`/dashboard`); 
     } catch (error) {
       console.error(error);
       alert("Erro ao registrar teste. Verifique o console.");
@@ -180,14 +180,15 @@ export function TesteSituacaoForm() {
             {errors.therapyAccess && <p className={errorClass}>{errors.therapyAccess.message}</p>}
           </div>
 
-          <div>
-            <label className={labelClass}>Faixa Salarial</label>
+        <div>
+            <label className={labelClass}>Faixa Salarial (Anual em R$)</label>
             <select {...register("salaryRange")} className={inputClass} defaultValue="">
-              <option value="" disabled>Selecione...</option>
-              <option value="Below 5000">Abaixo de 5000</option>
-              <option value="5000-8000">5000 - 8000</option>
-              <option value="8000-12000">8000 - 12000</option>
-              <option value="Above 12000">Acima de 12000</option>
+              <option value="" disabled>Selecione a faixa anual...</option>
+              <option value="<40K">Menos de R$ 40.000</option>
+              <option value="40-60K">R$ 40.000 a R$ 60.000</option>
+              <option value="60-80K">R$ 60.000 a R$ 80.000</option>
+              <option value="80-100K">R$ 80.000 a R$ 100.000</option>
+              <option value="100K>">Acima de R$ 100.000</option>
             </select>
             {errors.salaryRange && <p className={errorClass}>{errors.salaryRange.message}</p>}
           </div>

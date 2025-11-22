@@ -19,6 +19,11 @@ function App() {
   const Faq = lazy(() =>
     import("./pages/faq").then((m) => ({ default: m.Faq }))
   ); 
+
+    const DashboardPage = lazy(() =>
+    import("./pages/DashboardPage").then((m) => ({ default: m.DashboardPage }))
+  );
+
   const Login = lazy(() =>
     import("./pages/login").then((m) => ({ default: m.Login }))
   );
@@ -28,6 +33,10 @@ function App() {
   const About = lazy(() =>
     import("./pages/about").then((m) => ({ default: m.About }))
   );
+
+  const FuncionarioDetalhePage = lazy(() => 
+  import("./pages/FuncionarioDetalhePage").then((m) => ({ default: m.FuncionarioDetalhePage }))
+);
   
   const FuncionariosPage = lazy(() =>
     import("./pages/FuncionariosPage").then((m) => ({ default: m.FuncionariosPage }))
@@ -58,6 +67,8 @@ function App() {
                       <Route path="/login" element={<Login />} />
                       <Route path="/faq/:id?" element={<Faq />} />
                       <Route path="/about" element={<About />} />
+                      <Route path="/dashboard" element={<DashboardPage/>} /> 
+                      <Route path="/funcionarios/:id" element={<FuncionarioDetalhePage />} />
                       <Route path="/funcionarios/CadastroTesteSituacaoPage" element={<CadastroTesteSituacaoPage />} />
                       <Route path="/funcionarios/cadastro" element={<CadastroFuncionarioPage />} />
                       <Route path="/funcionarios" element={<FuncionariosPage />} />

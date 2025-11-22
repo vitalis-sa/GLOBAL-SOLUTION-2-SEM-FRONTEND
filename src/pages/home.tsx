@@ -26,7 +26,7 @@ export function Home() {
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                to="/teste"
+                to="funcionarios/CadastroTesteSituacaoPage"
                 className="bg-amarelo-medio-gs text-azul-gs font-bold text-lg py-4 px-10 rounded-full shadow-lg hover:bg-amarelo-escuro-gs hover:text-branco-gs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <span>🚀</span> Faça seu Check-in
@@ -111,7 +111,7 @@ export function Home() {
                   Junte-se a milhares de colaboradores que já estão transformando sua relação com o trabalho. É rápido, simples e gratuito para você.
                 </p>
                 <Link
-                  to="/teste"
+                  to="/funcionarios/CadastroTesteSituacaoPage"
                   className="inline-block bg-amarelo-medio-gs text-azul-gs font-bold text-xl py-4 px-12 rounded-full hover:bg-branco-gs hover:scale-105 transition-all duration-300 shadow-lg"
                 >
                   Começar Agora

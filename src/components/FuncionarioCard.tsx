@@ -28,9 +28,9 @@ export function FuncionarioCard({ funcionario }: FuncionarioCardProps) {
             {funcionario.nome}
           </h2>
           <p className="text-sm text-gray-500 font-medium mt-1">{funcionario.cargo}</p>
-          <span className="inline-block bg-bg-escurinho text-azul-gs text-xs px-2 py-1 rounded-full mt-2 font-semibold">
-            {funcionario.departamento?.nome || "Sem Depto"}
-          </span>
+                <span className="font-semibold text-azul-gs text-right">
+                  {funcionario.nomeDepartamento || "N/A"}
+                </span>
         </div>
       </div>
 
