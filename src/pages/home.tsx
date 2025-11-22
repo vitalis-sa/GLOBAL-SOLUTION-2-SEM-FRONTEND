@@ -1,5 +1,5 @@
 // Ajustei o import para o arquivo que existe na sua pasta assets
-import mentalHealthAnimate from "../assets/hospital-family-visit-animate.svg"; 
+import mentalHealthAnimate from "../assets/mental-health-animate.svg"; 
 import { Link } from "react-router-dom";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import atende_mais from "../assets/atende+.png";
+import equilibrium from "../assets/equilibrium.png";
 import { useAuth } from "../context/AuthContext"; 
 
 export function Header() {
@@ -17,10 +17,9 @@ export function Header() {
     { to: "/integrantes", label: "Integrantes" },
     { to: "/faq", label: "FAQ" },
     { to: "/teste", label: "Teste" },
-    { to: "/pacientes", label: "Pacientes" },
-    { to: "/cadastrar", label: "Cadastrar" },
-    { to: "/consultas/cadastro", label: "Agendar" },
-    { to: "/funcionarios/cadastro", label: "Novo Func." }, // <-- Link Adicionado
+    { to: "/funcionarios", label: "Funcionarios" },
+    { to: "/funcionarios/CadastroTesteSituacaoPage", label: "Recomendações" },
+    { to: "/funcionarios/cadastro", label: "Novo Func." },
     { to: "/contato", label: "Contato" },
   ];
 
@@ -42,7 +41,7 @@ export function Header() {
         className="flex items-center gap-2 hover:opacity-90 transition-opacity"
         onClick={handleLinkClick} 
       >
-        <img src={atende_mais} alt="Logo Equilibrium" className="max-w-[120px] h-auto drop-shadow-sm" />
+        <img src={equilibrium} alt="Logo Equilibrium" className="max-w-[70px] h-auto drop-shadow-sm" />
       </Link>
 
       {/* --- MENU DESKTOP --- */}

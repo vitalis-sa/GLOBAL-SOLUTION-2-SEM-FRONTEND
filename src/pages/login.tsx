@@ -26,7 +26,7 @@ export function Login() {
     try {
       await login(data.cpf);
       // Redireciona para a área logada (ex: dashboard ou testes)
-      navigate("/testes-situacao"); 
+      navigate("/funcionarios/CadastroTesteSituacaoPage"); 
     } catch (error: unknown) {
       console.log(error);
       setServerError("Erro ao realizar login. Verifique os dados.");
