@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Schema Zod para o formulário de login com CPF
 export const loginSchema = z.object({
   cpf: z
     .string()
@@ -9,5 +8,4 @@ export const loginSchema = z.object({
     .regex(/^[0-9]+$/, "O CPF deve conter apenas números."),
 });
 
-// Tipo gerado a partir do schema
 export type LoginFormData = z.infer<typeof loginSchema>;

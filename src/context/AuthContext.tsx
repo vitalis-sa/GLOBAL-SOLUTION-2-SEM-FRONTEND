@@ -1,70 +1,82 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useCallback, useState, useContext, useEffect } from "react";
-import type { Paciente } from "../types/paciente"; // Importe seu tipo Paciente
 import { API_VITALIS } from "../api/vitalis-api";
 
-// O DTO que o backend espera
-interface LoginRequest {
+const USER_STORAGE_KEY = "vitalis:user";
+
+interface Usuario {
+  id: number;
+  nome: string;
   cpf: string;
+  cargo: string;
+  idDepartamento: number;
+  email?: {
+    endereco: string;
+  };
 }
 
-// O que o Contexto irá fornecer
 interface AuthContextProps {
-  user: Paciente | null; // O usuário logado será um Paciente
-  login: (cpf: string) => Promise<void>; // Função de login
+  user: Usuario | null;
+  isAuthenticated: boolean;
+  login: (cpf: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
 }
 
-export const AuthContext = createContext<AuthContextProps>(
+// CORREÇÃO: Removemos o 'export' daqui. O Contexto agora é interno deste arquivo.
+// Quem quiser usar o contexto deve usar o hook useAuth ou o AuthProvider.
+const AuthContext = createContext<AuthContextProps>(
   {} as AuthContextProps
 );
 
-interface AuthProviderProps {
-  children: React.ReactNode;
-}
-
-const API_LOGIN_ENDPOINT = `${API_VITALIS}/login`;
-const USER_STORAGE_KEY = "vitalis:user"; // Chave para o localStorage
-
-export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<Paciente | null>(null);
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<Usuario | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Efeito para carregar o usuário do localStorage ao iniciar a aplicação
   useEffect(() => {
-    try {
-      const storedUser = localStorage.getItem(USER_STORAGE_KEY);
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
+    const carregarUsuarioStorage = () => {
+      try {
+        const storedUser = localStorage.getItem(USER_STORAGE_KEY);
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error("Erro ao ler localStorage:", error);
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.error("Falha ao carregar usuário do localStorage", error);
-    } finally {
-      setIsLoading(false);
-    }
+    };
+
+    carregarUsuarioStorage();
   }, []);
 
   const login = useCallback(async (cpf: string) => {
-    const loginRequest: LoginRequest = { cpf };
+    const cleanCpf = cpf.replace(/\D/g, "");
 
-    const response = await fetch(API_LOGIN_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(loginRequest),
-    });
+    try {
+      const response = await fetch(`${API_VITALIS}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cpf: cleanCpf }),
+      });
 
-    if (!response.ok) {
-      // Se a resposta for 401 (UNAUTHORIZED) ou outro erro
-      throw new Error("CPF não encontrado ou inválido.");
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error("CPF não encontrado. Verifique se o cadastro foi realizado.");
+        }
+        throw new Error(`Erro no servidor: ${response.statusText}`);
+      }
+
+      const data: Usuario = await response.json();
+
+      setUser(data);
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(data));
+      
+    } catch (error) {
+      console.error("Erro no login:", error);
+      throw error;
     }
-
-    const data: Paciente = await response.json();
-
-    setUser(data);
-    localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(data));
   }, []);
 
   const logout = useCallback(() => {
@@ -76,6 +88,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     <AuthContext.Provider
       value={{
         user,
+        isAuthenticated: !!user,
         login,
         logout,
         isLoading,
@@ -86,6 +99,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   );
 }
 
+// Adicionamos este comentário para permitir a exportação do hook no mesmo arquivo,
+// já que é um padrão útil e seguro neste caso. TEM QUE VER SE NAO DA RUIM NO DEPLOY
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+  }
+  return context;
 };
