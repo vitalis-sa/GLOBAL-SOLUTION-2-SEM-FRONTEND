@@ -9,7 +9,7 @@ export default defineConfig({
   // 👇 Adicione esta seção
   preview: {
     allowedHosts: [
-      'portal-de-entrada-662788552627.us-central1.run.app'
+      'equilibrium-906663117168.us-central1.run.app/'
     ]
   }
 })
