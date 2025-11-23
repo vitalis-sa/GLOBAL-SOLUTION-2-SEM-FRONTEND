@@ -25,16 +25,15 @@ export function FuncionariosPage() {
     <>
       <Header />
       
-      <main className="flex-grow bg-bg-clarinho min-h-screen py-12 px-4">
+      <main className="flex-grow bg-bg-clarinho dark:bg-gray-900 min-h-screen py-12 px-4 transition-colors duration-300">
         <div className="max-w-7xl mx-auto">
           
-          {/* Cabeçalho da Página */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-azul-gs">
+              <h1 className="text-3xl md:text-4xl font-bold text-azul-gs dark:text-white transition-colors">
                 Colaboradores
               </h1>
-              <p className="text-texto-escuro/60 mt-2 text-lg">
+              <p className="text-texto-escuro/60 dark:text-gray-300 mt-2 text-lg transition-colors">
                 Gerencie sua equipe e acompanhe o bem-estar corporativo.
               </p>
             </div>
@@ -48,15 +47,13 @@ export function FuncionariosPage() {
             </Link>
           </div>
           
-          {/* Lista */}
           <FuncionarioList lista={listaVisivel} />
 
-          {/* Botão Carregar Mais */}
           {funcionarios.length > visibleCount && (
             <div className="flex justify-center mt-12">
               <button
                 onClick={handleCarregarMais}
-                className="px-8 py-3 rounded-full border-2 border-azul-gs text-azul-gs font-bold hover:bg-azul-gs hover:text-white transition-all"
+                className="px-8 py-3 rounded-full border-2 border-azul-gs text-azul-gs dark:border-blue-400 dark:text-blue-400 font-bold hover:bg-azul-gs hover:text-white dark:hover:bg-blue-400 dark:hover:text-gray-900 transition-all"
               >
                 Carregar Mais
               </button>
