@@ -92,7 +92,7 @@ export function FuncionarioForm() {
       
       alert("Funcionário cadastrado com sucesso!");
       reset();
-      navigate("/login");
+      navigate("/funcionarios"); 
       
     } catch (error) {
       console.error(error);
@@ -100,15 +100,16 @@ export function FuncionarioForm() {
     }
   };
 
-  // --- ESTILOS (Sem Dark Mode) ---
+  // --- ESTILOS DARK MODE ---
   const inputBaseClasses = "w-full p-3 rounded-lg border text-base transition-colors focus:outline-none focus:ring-2 focus:ring-amarelo-medio-gs focus:border-transparent";
-  const inputNormalClasses = "bg-white border-gray-200 text-texto-escuro placeholder-gray-400";
+  const inputNormalClasses = "bg-white border-gray-200 text-texto-escuro placeholder-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white";
   const inputErrorClasses = "bg-red-50 border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500";
-  const labelClasses = "text-sm font-bold text-azul-gs ml-1 mb-1 block";
-  const sectionTitleClasses = "text-xl font-bold text-azul-gs border-b border-gray-100 pb-2 mb-6 mt-2";
+  
+  const labelClasses = "text-sm font-bold text-azul-gs dark:text-blue-400 ml-1 mb-1 block transition-colors";
+  const sectionTitleClasses = "text-xl font-bold text-azul-gs dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2 mb-6 mt-2 transition-colors";
 
   return (
-    <div className="bg-branco-gs rounded-3xl shadow-2xl overflow-hidden border-t-4 border-amarelo-medio-gs p-8 md:p-12">
+    <div className="bg-branco-gs dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border-t-4 border-amarelo-medio-gs p-8 md:p-12 transition-colors duration-300">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         
         {/* SEÇÃO 1: DADOS PESSOAIS */}
@@ -198,15 +199,24 @@ export function FuncionarioForm() {
               {errors.idDepartamento && <p className="text-red-500 text-xs ml-1 mt-1">{errors.idDepartamento?.message}</p>}
             </div>
 
-            {/* Cargo */}
+            {/* Cargo (Agora Dropdown) */}
             <div>
               <label className={labelClasses}>Cargo</label>
-              <input 
-                type="text" 
-                placeholder="Ex: Desenvolvedor Jr"
+              <select
                 {...register("cargo")} 
                 className={`${inputBaseClasses} ${errors.cargo ? inputErrorClasses : inputNormalClasses}`} 
-              />
+                defaultValue=""
+              >
+                <option value="" disabled>Selecione o cargo...</option>
+                <option value="Data Scientist">Data Scientist</option>
+                <option value="Software Engineer">Software Engineer</option>
+                <option value="Customer Support">Customer Support</option>
+                <option value="Marketing Manager">Marketing Manager</option>
+                <option value="Project Manager">Project Manager</option>
+                <option value="HR Specialist">HR Specialist</option>
+                <option value="IT Admin">IT Admin</option>
+                <option value="Sales Associate">Sales Associate</option>
+              </select>
               {errors.cargo && <p className="text-red-500 text-xs ml-1 mt-1">{errors.cargo?.message}</p>}
             </div>
 

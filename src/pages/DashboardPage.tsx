@@ -63,6 +63,14 @@ export function DashboardPage() {
   if (isLoading) return <><Header /><Loading /><Footer /></>;
   if (!funcionario) return null;
 
+  // --- Tratamento do Score (Regra: Negativo vira 0) ---
+  const rawScore = ultimoTeste?.burnoutScore;
+  // Se existir score, fazemos o clamp para não ser menor que 0
+  const displayScoreValue = rawScore !== null && rawScore !== undefined 
+    ? Math.max(0, rawScore) 
+    : null;
+
+  // --- Lógica de Cores do Score ---
   const getScoreColor = (score: number | null) => {
     if (score === null) return "border-gray-200 dark:border-gray-700 text-gray-400 dark:text-gray-500";
     
@@ -83,6 +91,13 @@ export function DashboardPage() {
     return "Risco Alto";
   };
 
+  // --- Validação de Conteúdo da Recomendação ---
+  // Verifica se existe objeto E se tem conteúdo de texto válido
+  const hasRecomendacaoContent = recomendacao && (
+    (recomendacao.introducao && recomendacao.introducao.trim().length > 0) ||
+    (recomendacao.titulo && recomendacao.titulo.trim().length > 0)
+  );
+
   const primeiroNome = funcionario.nome ? funcionario.nome.split(' ')[0] : "Colaborador";
 
   return (
@@ -102,26 +117,39 @@ export function DashboardPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-
+            {/* COLUNA ESQUERDA: Score e Infos (1/3) */}
             <div className="flex flex-col gap-8">
+              
+              {/* Card de Burnout Score */}
               <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-8 text-center border-t-4 border-amarelo-medio-gs relative overflow-hidden transition-colors duration-300">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-azul-gs to-amarelo-medio-gs"></div>
                 <h2 className="text-xl font-bold text-azul-gs dark:text-white mb-6 uppercase tracking-wider transition-colors">Seu Burnout Score</h2>
+                
                 {ultimoTeste ? (
                   <div className="flex flex-col items-center">
-                    <div className={`w-40 h-40 rounded-full border-8 flex items-center justify-center mb-4 transition-colors duration-500 ${getScoreColor(ultimoTeste.burnoutScore)}`}>
+                    {/* Usa displayScoreValue (que já está tratado para não ser negativo) para cor e texto */}
+                    <div className={`w-40 h-40 rounded-full border-8 flex items-center justify-center mb-4 transition-colors duration-500 ${getScoreColor(displayScoreValue)}`}>
                       <span className="text-4xl font-extrabold">
-                        {ultimoTeste.burnoutScore !== null ? (ultimoTeste.burnoutScore * 10).toFixed(0) : "--"}
+                        {displayScoreValue !== null ? (displayScoreValue * 10).toFixed(0) : "--"}
                         <span className="text-lg">%</span>
                       </span>
                     </div>
-                    {/* Label do Score (As cores já vêm da função getScoreColor que lida com dark mode) */}
-                    <p className={`text-lg font-bold px-4 py-1 rounded-full ${getScoreColor(ultimoTeste.burnoutScore).split(' ').filter(c => c.startsWith('bg-') || c.startsWith('dark:bg-') || c.startsWith('text-') || c.startsWith('dark:text-')).join(' ')}`}>
-                      {getScoreLabel(ultimoTeste.burnoutScore)}
+                    
+                    <p className={`text-lg font-bold px-4 py-1 rounded-full ${getScoreColor(displayScoreValue).split(' ').filter(c => c.startsWith('bg-') || c.startsWith('dark:bg-') || c.startsWith('text-') || c.startsWith('dark:text-')).join(' ')}`}>
+                      {getScoreLabel(displayScoreValue)}
                     </p>
+                    
                     <p className="text-xs text-gray-400 dark:text-gray-500 mt-4 transition-colors">
                       Última atualização: {new Date().toLocaleDateString()}
                     </p>
+
+                    {/* Botão para refazer teste sempre visível */}
+                    <Link 
+                      to="/funcionarios/CadastroTesteSituacaoPage" 
+                      className="mt-6 inline-block text-sm font-bold text-azul-gs dark:text-blue-300 hover:text-amarelo-escuro-gs dark:hover:text-yellow-400 underline decoration-2 underline-offset-4 transition-all"
+                    >
+                      Refazer Check-in
+                    </Link>
                   </div>
                 ) : (
                   <div className="py-10">
@@ -133,6 +161,7 @@ export function DashboardPage() {
                 )}
               </div>
 
+              {/* Mini Perfil */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 transition-colors duration-300">
                 <h3 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4 transition-colors">Seus Dados</h3>
                 <div className="space-y-3 text-sm text-gray-600 dark:text-gray-300 transition-colors">
@@ -162,25 +191,24 @@ export function DashboardPage() {
               </div>
             </div>
 
-
+            {/* COLUNA DIREITA: Recomendações da IA (2/3) */}
             <div className="lg:col-span-2">
-              {recomendacao ? (
+              {hasRecomendacaoContent ? (
                 <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 h-full transition-colors duration-300">
- 
                   <div className="bg-gradient-to-r from-azul-gs to-[#3a6b82] dark:from-gray-700 dark:to-gray-900 p-8 text-white">
                     <div className="flex items-center gap-2 mb-2 opacity-90">
                       <span className="text-2xl">✨</span>
                       <span className="font-bold uppercase tracking-widest text-xs">Equilibrium AI</span>
                     </div>
                     <h2 className="text-2xl md:text-3xl font-bold leading-tight">
-                      {recomendacao.titulo ? recomendacao.titulo.replace(/"/g, '') : "Sua Análise"}
+                      {recomendacao!.titulo ? recomendacao!.titulo.replace(/"/g, '') : "Sua Análise"}
                     </h2>
                   </div>
 
                   <div className="p-6 md:p-8 space-y-8">
                     
                     <div className="prose max-w-none text-gray-600 dark:text-gray-300 text-lg leading-relaxed transition-colors">
-                      <p>{recomendacao.introducao}</p>
+                      <p>{recomendacao!.introducao}</p>
                     </div>
 
                     <div>
@@ -188,7 +216,7 @@ export function DashboardPage() {
                         <span>🎯</span> Plano de Ação
                       </h3>
                       <div className="space-y-4">
-                        {[recomendacao.conselho1, recomendacao.conselho2, recomendacao.conselho3]
+                        {[recomendacao!.conselho1, recomendacao!.conselho2, recomendacao!.conselho3]
                           .filter(Boolean)
                           .map((conselho, idx) => (
                             <div key={idx} className="flex gap-4 bg-bg-clarinho dark:bg-gray-700 p-5 rounded-xl border-l-4 border-amarelo-medio-gs hover:shadow-md transition-all">
@@ -199,13 +227,13 @@ export function DashboardPage() {
                       </div>
                     </div>
 
-                    {(recomendacao.leitura1 || recomendacao.leitura2) && (
+                    {(recomendacao!.leitura1 || recomendacao!.leitura2) && (
                       <div className="pt-4 border-t border-gray-100 dark:border-gray-700 transition-colors">
                         <h3 className="text-lg font-bold text-azul-gs dark:text-blue-300 mb-4 flex items-center gap-2 transition-colors">
                           <span>📚</span> Para se aprofundar
                         </h3>
                         <div className="flex flex-col gap-3">
-                          {[recomendacao.leitura1, recomendacao.leitura2].filter(Boolean).map((leitura, idx) => (
+                          {[recomendacao!.leitura1, recomendacao!.leitura2].filter(Boolean).map((leitura, idx) => (
                             <div key={idx} className="group flex items-center gap-2 p-3 rounded-lg hover:bg-bg-clarinho dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300">
                               <span className="text-amarelo-escuro-gs dark:text-yellow-500">🔗</span>
                               <span className="underline decoration-gray-300 dark:decoration-gray-600 group-hover:decoration-amarelo-medio-gs underline-offset-4">
@@ -225,18 +253,22 @@ export function DashboardPage() {
                   </div>
                 </div>
               ) : (
-
+                // Estado Vazio (Se não houver recomendação OU se estiver com texto vazio)
                 <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-12 text-center h-full flex flex-col items-center justify-center border-2 border-dashed border-gray-200 dark:border-gray-700 transition-colors duration-300">
                   <div className="text-6xl mb-4 opacity-20">🧘</div>
-                  <h3 className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-2">Nenhuma recomendação ainda</h3>
+                  <h3 className="text-xl font-bold text-gray-400 dark:text-gray-500 mb-2">
+                    {recomendacao ? "Recomendações Pendentes" : "Nenhuma recomendação ainda"}
+                  </h3>
                   <p className="text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-8 text-lg">
-                    Para gerar seu plano personalizado de bem-estar, precisamos entender como você está se sentindo hoje.
+                    {recomendacao 
+                      ? "Recebemos seus dados, mas ainda não geramos um plano completo. Por favor, tente refazer a análise para obter novos insights."
+                      : "Para gerar seu plano personalizado de bem-estar, precisamos entender como você está se sentindo hoje."}
                   </p>
                   <Link
                     to="/funcionarios/CadastroTesteSituacaoPage"
                     className="bg-amarelo-medio-gs text-azul-gs font-bold py-4 px-10 rounded-full hover:bg-amarelo-escuro-gs hover:text-white transition-all shadow-lg hover:-translate-y-1 text-lg"
                   >
-                    Iniciar Análise Agora
+                    {recomendacao ? "Refazer Análise Agora" : "Iniciar Análise Agora"}
                   </Link>
                 </div>
               )}

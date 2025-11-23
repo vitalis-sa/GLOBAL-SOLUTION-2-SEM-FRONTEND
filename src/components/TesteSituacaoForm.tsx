@@ -136,8 +136,8 @@ export function TesteSituacaoForm() {
             {errors.sleepHours && <p className={errorClass}>{errors.sleepHours.message}</p>}
           </div>
           <div>
-            <label className={labelClass}>Atividade Física (min/sem)</label>
-            <input type="number" step="0.1" {...register("physicalActivity", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 150" />
+            <label className={labelClass}>Atividade Física (horas/sem)</label>
+            <input type="number" step="0.1" {...register("physicalActivity", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 5" />
             {errors.physicalActivity && <p className={errorClass}>{errors.physicalActivity.message}</p>}
           </div>
           <div>
