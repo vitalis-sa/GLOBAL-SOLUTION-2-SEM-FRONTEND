@@ -3,7 +3,7 @@ import { Footer } from "../components/footer";
 import { Header } from "../components/header";
 import { FaPlus } from "react-icons/fa";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import carringBox from "../assets/carringBox.svg"; // Usando a imagem de contato
+import carringBox from "../assets/carringBox.svg"; 
 
 const faqs = [
   {
@@ -50,7 +50,7 @@ export function Faq() {
   const navigate = useNavigate();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // Abre direto se acessar /faq/:id
+ 
   useEffect(() => {
     if (id) {
       const idx = parseInt(id, 10);
@@ -65,27 +65,30 @@ export function Faq() {
   const handleClick = (idx: number) => {
     if (openIndex === idx) {
       setOpenIndex(null);
-      navigate("/faq"); // fecha e volta pra /faq
+      navigate("/faq"); 
     } else {
       setOpenIndex(idx);
-      navigate(`/faq/${idx}`); // abre e atualiza URL
+      navigate(`/faq/${idx}`); 
     }
   };
 
   return (
     <>
       <Header />
-      <main className="flex-grow bg-bg-clarinho min-h-screen py-12 px-4">
+
+      <main className="flex-grow bg-bg-clarinho dark:bg-gray-900 min-h-screen py-12 px-4 transition-colors duration-300">
         
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
           
-          {/* Coluna da Esquerda: Título e Accordion */}
+
           <div className="flex flex-col gap-8">
             <div className="text-center lg:text-left">
-              <h2 className="text-3xl md:text-4xl font-bold text-azul-gs mb-4">
+
+              <h2 className="text-3xl md:text-4xl font-bold text-azul-gs dark:text-white mb-4 transition-colors">
                 Dúvidas Frequentes
               </h2>
-              <p className="text-texto-escuro/70 text-lg">
+
+              <p className="text-texto-escuro/70 dark:text-gray-300 text-lg transition-colors">
                 Entenda como cuidamos da sua saúde mental e privacidade.
               </p>
             </div>
@@ -96,8 +99,10 @@ export function Faq() {
                 return (
                   <div 
                     key={idx}
-                    className={`bg-branco-gs rounded-2xl shadow-sm border transition-all duration-300 overflow-hidden
-                      ${isOpen ? 'border-amarelo-medio-gs shadow-md' : 'border-transparent hover:border-azul-gs/20'}
+                    // 4. Card: bg-branco-gs -> dark:bg-gray-800
+                    // 5. Borda hover: dark:hover:border-gray-600
+                    className={`bg-branco-gs dark:bg-gray-800 rounded-2xl shadow-sm border transition-all duration-300 overflow-hidden
+                      ${isOpen ? 'border-amarelo-medio-gs shadow-md' : 'border-transparent hover:border-azul-gs/20 dark:hover:border-gray-600'}
                     `}
                   >
                     <button
@@ -106,11 +111,13 @@ export function Faq() {
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${idx}`}
                     >
-                      <span className={`text-lg font-semibold transition-colors ${isOpen ? 'text-azul-gs' : 'text-texto-escuro group-hover:text-azul-gs'}`}>
+
+                      <span className={`text-lg font-semibold transition-colors ${isOpen ? 'text-azul-gs dark:text-blue-400' : 'text-texto-escuro dark:text-gray-200 group-hover:text-azul-gs dark:group-hover:text-blue-300'}`}>
                         {faq.question}
                       </span>
-                      <div className={`p-2 rounded-full transition-colors ${isOpen ? 'bg-amarelo-claro-gs text-azul-gs' : 'bg-bg-clarinho text-texto-escuro'}`}>
-                         {/* Ícone que gira */}
+                      
+                      <div className={`p-2 rounded-full transition-colors ${isOpen ? 'bg-amarelo-claro-gs dark:bg-yellow-900/30 text-azul-gs dark:text-yellow-400' : 'bg-bg-clarinho dark:bg-gray-700 text-texto-escuro dark:text-gray-400'}`}>
+                    
                          <FaPlus 
                            className={`transform transition-transform duration-300 ${isOpen ? 'rotate-45' : 'rotate-0'}`} 
                            size={14}
@@ -122,7 +129,8 @@ export function Faq() {
                       id={`faq-answer-${idx}`}
                       className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
                     >
-                      <div className="p-5 pt-0 text-texto-escuro/80 leading-relaxed border-t border-gray-100">
+                      
+                      <div className="p-5 pt-0 text-texto-escuro/80 dark:text-gray-300 leading-relaxed border-t border-gray-100 dark:border-gray-700">
                         {faq.answer}
                       </div>
                     </div>
@@ -132,11 +140,12 @@ export function Faq() {
             </div>
           </div>
 
-          {/* Coluna da Direita: Imagem (Fixa em desktop) */}
+        
           <div className="hidden lg:flex flex-col items-center justify-center sticky top-24">
-            <div className="bg-branco-gs p-8 rounded-full shadow-xl mb-8 relative z-10">
-               {/* Círculo decorativo atrás */}
-               <div className="absolute inset-0 bg-amarelo-claro-gs rounded-full blur-2xl opacity-50 -z-10 transform scale-110"></div>
+
+            <div className="bg-branco-gs dark:bg-gray-800 p-8 rounded-full shadow-xl mb-8 relative z-10 transition-colors duration-300">
+          
+               <div className="absolute inset-0 bg-amarelo-claro-gs dark:bg-yellow-900/20 rounded-full blur-2xl opacity-50 -z-10 transform scale-110 transition-colors"></div>
                
                <img
                 src={carringBox}
@@ -145,8 +154,8 @@ export function Faq() {
               />
             </div>
             <div className="text-center">
-              <h3 className="text-xl font-bold text-azul-gs mb-2">Precisa de ajuda especializada?</h3>
-              <p className="text-texto-escuro/70 mb-4">Nosso time de suporte está à disposição.</p>
+              <h3 className="text-xl font-bold text-azul-gs dark:text-white mb-2 transition-colors">Precisa de ajuda especializada?</h3>
+              <p className="text-texto-escuro/70 dark:text-gray-300 mb-4 transition-colors">Nosso time de suporte está à disposição.</p>
               <Link 
                 to="/contato"
                 className="inline-block bg-azul-gs text-branco-gs font-semibold py-3 px-8 rounded-full hover:bg-amarelo-escuro-gs hover:shadow-lg transition-all duration-300"
