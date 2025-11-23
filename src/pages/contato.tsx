@@ -1,6 +1,5 @@
 import { Footer } from "../components/footer";
 import { Header } from "../components/header";
-import "../index.css";
 import { useState, type ChangeEvent, type FormEvent } from "react";
 import contactUS from "../assets/contact-us-animate.svg";
 
@@ -61,7 +60,6 @@ export function Contato() {
     if (Object.keys(newErrors).length === 0) {
       console.log("Mensagem enviada:", form);
       alert("Sua mensagem foi enviada com sucesso! Em breve entraremos em contato.");
-      // Resetar o formulário após o envio bem-sucedido
       setForm({
         nome: "",
         telefone: "",
@@ -73,27 +71,28 @@ export function Contato() {
   };
 
   const inputBaseClasses = "w-full p-3 rounded-lg border text-base transition-colors focus:outline-none focus:ring-2 focus:ring-amarelo-medio-gs focus:border-transparent";
-  const inputNormalClasses = "bg-white border-gray-200 text-texto-escuro placeholder-gray-400";
+  const inputNormalClasses = "bg-white border-gray-200 text-texto-escuro placeholder-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white";
   const inputErrorClasses = "bg-red-50 border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500";
+  const labelClasses = "text-sm font-semibold text-gray-600 dark:text-gray-300 ml-1 transition-colors";
 
   return (
     <>
       <Header />
-      <main className="flex flex-col justify-center items-center py-16 px-4 bg-bg-clarinho min-h-screen">
+      <main className="flex flex-col justify-center items-center py-16 px-4 bg-bg-clarinho dark:bg-gray-900 min-h-screen transition-colors duration-300">
         
         <div className="w-full max-w-6xl mx-auto mb-12 text-center">
-           <h2 className="text-3xl md:text-4xl font-bold text-azul-gs mb-4">
+           <h2 className="text-3xl md:text-4xl font-bold text-azul-gs dark:text-white mb-4 transition-colors">
              Fale com a <span className="text-amarelo-escuro-gs">Equilibrium</span>
            </h2>
-           <p className="text-texto-escuro/70 max-w-2xl mx-auto text-lg">
+           <p className="text-texto-escuro/70 dark:text-gray-300 max-w-2xl mx-auto text-lg transition-colors">
              Estamos aqui para ouvir você. Seja para tirar dúvidas, enviar sugestões ou solicitar suporte, nossa equipe está pronta para ajudar.
            </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-stretch w-full max-w-6xl mx-auto gap-12 bg-branco-gs rounded-3xl shadow-2xl overflow-hidden border-t-4 border-amarelo-medio-gs">
+        <div className="flex flex-col lg:flex-row items-stretch w-full max-w-6xl mx-auto gap-12 bg-branco-gs dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border-t-4 border-amarelo-medio-gs transition-colors duration-300">
 
           {/* Coluna da Esquerda: Imagem e Info */}
-          <div className="lg:w-[40%] bg-azul-gs/5 p-8 md:p-12 flex flex-col justify-center items-center text-center lg:items-start lg:text-left relative">
+          <div className="lg:w-[40%] bg-azul-gs/5 dark:bg-gray-700/30 p-8 md:p-12 flex flex-col justify-center items-center text-center lg:items-start lg:text-left relative transition-colors">
             {/* Elemento decorativo */}
             <div className="absolute top-0 left-0 w-32 h-32 bg-amarelo-claro-gs rounded-full blur-3xl opacity-50 -z-10"></div>
 
@@ -104,34 +103,34 @@ export function Contato() {
             />
 
             <div className="space-y-6 w-full">
-              <div className="p-4 bg-white rounded-xl shadow-sm border border-azul-gs/10 hover:border-amarelo-medio-gs transition-colors group">
-                 <h3 className="text-lg font-bold text-azul-gs mb-1 group-hover:text-amarelo-escuro-gs transition-colors">E-mail</h3>
-                 <p className="text-texto-escuro/80 text-sm">contato@equilibrium.com.br</p>
+              <div className="p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm border border-azul-gs/10 dark:border-gray-600 hover:border-amarelo-medio-gs transition-colors group">
+                 <h3 className="text-lg font-bold text-azul-gs dark:text-white mb-1 group-hover:text-amarelo-escuro-gs dark:group-hover:text-yellow-400 transition-colors">E-mail</h3>
+                 <p className="text-texto-escuro/80 dark:text-gray-300 text-sm">contato@equilibrium.com.br</p>
               </div>
 
-              <div className="p-4 bg-white rounded-xl shadow-sm border border-azul-gs/10 hover:border-amarelo-medio-gs transition-colors group">
-                 <h3 className="text-lg font-bold text-azul-gs mb-1 group-hover:text-amarelo-escuro-gs transition-colors">Telefone</h3>
-                 <p className="text-texto-escuro/80 text-sm">(11) 3385-8010</p>
-                 <p className="text-xs text-gray-500 mt-1">Seg. a Sex. das 8h às 18h</p>
+              <div className="p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm border border-azul-gs/10 dark:border-gray-600 hover:border-amarelo-medio-gs transition-colors group">
+                 <h3 className="text-lg font-bold text-azul-gs dark:text-white mb-1 group-hover:text-amarelo-escuro-gs dark:group-hover:text-yellow-400 transition-colors">Telefone</h3>
+                 <p className="text-texto-escuro/80 dark:text-gray-300 text-sm">(11) 3385-8010</p>
+                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Seg. a Sex. das 8h às 18h</p>
               </div>
 
-              <div className="p-4 bg-white rounded-xl shadow-sm border border-azul-gs/10 hover:border-amarelo-medio-gs transition-colors group">
-                 <h3 className="text-lg font-bold text-azul-gs mb-1 group-hover:text-amarelo-escuro-gs transition-colors">Endereço</h3>
-                 <p className="text-texto-escuro/80 text-sm">Av. Paulista, 1106 - 7º andar</p>
-                 <p className="text-texto-escuro/80 text-sm">Bela Vista, São Paulo - SP</p>
+              <div className="p-4 bg-white dark:bg-gray-700 rounded-xl shadow-sm border border-azul-gs/10 dark:border-gray-600 hover:border-amarelo-medio-gs transition-colors group">
+                 <h3 className="text-lg font-bold text-azul-gs dark:text-white mb-1 group-hover:text-amarelo-escuro-gs dark:group-hover:text-yellow-400 transition-colors">Endereço</h3>
+                 <p className="text-texto-escuro/80 dark:text-gray-300 text-sm">Av. Paulista, 1106 - 7º andar</p>
+                 <p className="text-texto-escuro/80 dark:text-gray-300 text-sm">Bela Vista, São Paulo - SP</p>
               </div>
             </div>
           </div>
 
           {/* Coluna da Direita: Formulário */}
           <div className="lg:w-[60%] p-8 md:p-12 flex flex-col justify-center">
-            <h3 className="text-2xl font-bold text-azul-gs mb-6">Envie sua mensagem</h3>
+            <h3 className="text-2xl font-bold text-azul-gs dark:text-white mb-6 transition-colors">Envie sua mensagem</h3>
             
             <form onSubmit={handleSubmit} className="space-y-5">
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div className="space-y-1">
-                  <label htmlFor="nome" className="text-sm font-semibold text-gray-600 ml-1">Nome</label>
+                  <label htmlFor="nome" className={labelClasses}>Nome</label>
                   <input
                     type="text"
                     id="nome"
@@ -145,7 +144,7 @@ export function Contato() {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="telefone" className="text-sm font-semibold text-gray-600 ml-1">Telefone (opcional)</label>
+                  <label htmlFor="telefone" className={labelClasses}>Telefone (opcional)</label>
                   <input
                     type="text"
                     id="telefone"
@@ -159,7 +158,7 @@ export function Contato() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="email" className="text-sm font-semibold text-gray-600 ml-1">E-mail</label>
+                <label htmlFor="email" className={labelClasses}>E-mail</label>
                 <input
                   type="email"
                   id="email"
@@ -173,7 +172,7 @@ export function Contato() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="assunto" className="text-sm font-semibold text-gray-600 ml-1">Assunto</label>
+                <label htmlFor="assunto" className={labelClasses}>Assunto</label>
                 <input
                   type="text"
                   id="assunto"
@@ -187,7 +186,7 @@ export function Contato() {
               </div>
 
               <div className="space-y-1">
-                <label htmlFor="mensagem" className="text-sm font-semibold text-gray-600 ml-1">Mensagem</label>
+                <label htmlFor="mensagem" className={labelClasses}>Mensagem</label>
                 <textarea
                   id="mensagem"
                   name="mensagem"
