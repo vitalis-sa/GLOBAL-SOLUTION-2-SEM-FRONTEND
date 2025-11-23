@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 export function Footer() {
   return (
-    <footer className="bg-azul-gs pt-10 pb-6 px-4 mt-auto border-t-4 border-amarelo-escuro-gs">
+    <footer className="bg-azul-gs dark:bg-gray-950 pt-10 pb-6 px-4 mt-auto border-t-4 border-amarelo-escuro-gs transition-colors duration-300">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8 md:gap-4 border-b border-branco-gs/20 pb-8">
 
         {/* Coluna 1 */}
@@ -45,7 +47,7 @@ export function Footer() {
           <nav className="flex flex-col gap-2 items-center md:items-end">
             <a href="#" className="text-branco-gs text-sm hover:text-amarelo-claro-gs hover:translate-x-1 transition-all">Política de Privacidade</a>
             <a href="#" className="text-branco-gs text-sm hover:text-amarelo-claro-gs hover:translate-x-1 transition-all">Termos de Uso</a>
-            <a href="/contato" className="text-branco-gs text-sm hover:text-amarelo-claro-gs hover:translate-x-1 transition-all">Trabalhe Conosco</a>
+            <Link to="/contato" className="text-branco-gs text-sm hover:text-amarelo-claro-gs hover:translate-x-1 transition-all">Trabalhe Conosco</Link>
           </nav>
         </div>
       </div>

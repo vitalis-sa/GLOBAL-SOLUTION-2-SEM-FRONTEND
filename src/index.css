@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 @import "tailwindcss";
 
+/* 1. Habilita o Dark Mode via classe (.dark) */
+/* Isso substitui o comportamento padrão de media-query */
+@variant dark (&:where(.dark, .dark *));
+
 @tailwind utilities;
 
 * {
@@ -26,4 +30,17 @@
   --color-quase-branco: #fafafa;
   --color-bg-clarinho: #f5f8ff;
   --color-bg-escurinho: #eefafc;
+}
+
+/* 2. Configuração Global do Body para Transição de Tema */
+@layer base {
+  body {
+    /* Tema Claro (Padrão) */
+    @apply bg-bg-clarinho text-texto-escuro transition-colors duration-300;
+  }
+
+  /* Tema Escuro (Quando a classe .dark está no HTML) */
+  .dark body {
+    @apply bg-gray-900 text-branco-gs;
+  }
 }

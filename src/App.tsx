@@ -5,6 +5,7 @@ import { Loading } from "./components/loading"
 import { AuthProvider } from "./context/AuthContext"
 import { FuncionarioProvider } from "./context/FuncionarioContext" // <-- 1. IMPORTAR PROVIDER
 import { TesteSituacaoProvider } from "./context/TesteSituacaoContext";
+import { ThemeProvider } from "./context/ThemeContext"
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
 
 
   return (
+    <ThemeProvider>
     <BrowserRouter>
       <AuthProvider>
               <FuncionarioProvider>
@@ -78,6 +80,7 @@ function App() {
               </FuncionarioProvider>
       </AuthProvider>
     </BrowserRouter>
+    </ThemeProvider>
   )
 }
 

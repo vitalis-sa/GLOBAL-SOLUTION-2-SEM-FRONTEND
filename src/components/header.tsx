@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import equilibrium from "../assets/equilibrium.png";
-import { useAuth } from "../context/AuthContext"; 
+import { useAuth } from "../context/AuthContext";
+import { ThemeToggle } from "./ThemeToggle"; // 1. Importar o botão
 
 export function Header() {
   const [open, setOpen] = useState(false);
-  const location = useLocation(); 
-  const navigate = useNavigate(); 
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { user, logout } = useAuth();
 
-  // --- Lista Unificada de Links (Todos visíveis) ---
   const links = [
     { to: "/", label: "Home" },
     { to: "/about", label: "Sobre" },
@@ -28,18 +28,19 @@ export function Header() {
   };
 
   const handleLogout = () => {
-    logout(); 
-    handleLinkClick(); 
-    navigate("/"); 
+    logout();
+    handleLinkClick();
+    navigate("/");
   };
 
   return (
-    <nav className="bg-azul-gs shadow-lg w-full h-[80px] flex items-center px-5 md:px-10 sticky top-0 z-50 transition-colors duration-300">
+    // 2. Aplicação das classes 'dark:' para o fundo do menu
+    <nav className="bg-azul-gs dark:bg-gray-900 shadow-lg w-full h-[80px] flex items-center px-5 md:px-10 sticky top-0 z-50 transition-colors duration-300 border-b border-transparent dark:border-gray-800">
       {/* Logo */}
-      <Link 
-        to="/" 
+      <Link
+        to="/"
         className="flex items-center gap-2 hover:opacity-90 transition-opacity"
-        onClick={handleLinkClick} 
+        onClick={handleLinkClick}
       >
         <img src={equilibrium} alt="Logo Equilibrium" className="max-w-[70px] h-auto drop-shadow-sm" />
       </Link>
@@ -53,8 +54,8 @@ export function Header() {
               key={link.to}
               to={link.to}
               className={`text-sm font-medium transition-all duration-300 ${
-                isActive 
-                  ? "text-amarelo-medio-gs font-bold border-b-2 border-amarelo-escuro-gs pb-1" 
+                isActive
+                  ? "text-amarelo-medio-gs font-bold border-b-2 border-amarelo-escuro-gs pb-1"
                   : "text-branco-gs hover:text-amarelo-claro-gs hover:-translate-y-0.5"
               }`}
             >
@@ -62,6 +63,11 @@ export function Header() {
             </Link>
           );
         })}
+
+        {/* 3. Botão de Alternar Tema (Desktop) */}
+        <div className="ml-2">
+            <ThemeToggle />
+        </div>
 
         {/* Botão Login/Logout Desktop */}
         <div className="pl-4 border-l border-branco-gs/20 ml-2">
@@ -111,7 +117,8 @@ export function Header() {
 
       {/* --- MENU MOBILE --- */}
       {open && (
-        <div className="absolute top-[80px] left-0 w-full bg-azul-gs/95 backdrop-blur-md shadow-xl flex flex-col items-center gap-6 py-8 lg:hidden z-40 border-t border-branco-gs/10">
+        // 4. Fundo escuro para o menu mobile expandido
+        <div className="absolute top-[80px] left-0 w-full bg-azul-gs/95 dark:bg-gray-900/95 backdrop-blur-md shadow-xl flex flex-col items-center gap-6 py-8 lg:hidden z-40 border-t border-branco-gs/10">
           {links.map((link) => {
             const isActive = location.pathname === link.to;
             return (
@@ -120,8 +127,8 @@ export function Header() {
                 to={link.to}
                 onClick={handleLinkClick}
                 className={`text-lg font-medium transition-colors ${
-                  isActive 
-                    ? "text-amarelo-medio-gs font-bold border-b-2 border-amarelo-escuro-gs" 
+                  isActive
+                    ? "text-amarelo-medio-gs font-bold border-b-2 border-amarelo-escuro-gs"
                     : "text-branco-gs hover:text-amarelo-claro-gs"
                 }`}
               >
@@ -129,6 +136,11 @@ export function Header() {
               </Link>
             );
           })}
+
+          {/* 5. Botão de Alternar Tema (Mobile) */}
+          <div className="py-2">
+            <ThemeToggle />
+          </div>
 
           <div className="mt-4 pt-6 border-t border-branco-gs/20 w-3/4 flex flex-col items-center gap-4">
             {user ? (
