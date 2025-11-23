@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+
 import { createContext, useCallback, useContext } from "react";
 import type { TesteSituacaoApiPayload } from "../schemas/teste-situacao-schema";
 import { API_VITALIS } from "../api/vitalis-api";

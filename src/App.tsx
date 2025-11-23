@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { NotFound } from "./pages/not-found"
 import { lazy, Suspense } from "react"
 import { Loading } from "./components/loading"
-import { DialogflowChat } from "./components/vitas"
 import { AuthProvider } from "./context/AuthContext"
 import { FuncionarioProvider } from "./context/FuncionarioContext" // <-- 1. IMPORTAR PROVIDER
 import { TesteSituacaoProvider } from "./context/TesteSituacaoContext";
@@ -56,7 +55,6 @@ function App() {
       <AuthProvider>
               <FuncionarioProvider>
                 <TesteSituacaoProvider>
-                <DialogflowChat />
                 <Suspense fallback={<Loading />}>
                   <Routes>
                     <Route>

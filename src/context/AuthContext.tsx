@@ -22,8 +22,6 @@ interface AuthContextProps {
   isLoading: boolean;
 }
 
-// CORREÇÃO: Removemos o 'export' daqui. O Contexto agora é interno deste arquivo.
-// Quem quiser usar o contexto deve usar o hook useAuth ou o AuthProvider.
 const AuthContext = createContext<AuthContextProps>(
   {} as AuthContextProps
 );
