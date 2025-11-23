@@ -92,7 +92,7 @@ export function FuncionarioForm() {
       
       alert("Funcionário cadastrado com sucesso!");
       reset();
-      navigate("/funcionarios"); 
+      navigate("/funcionarios"); // Redireciona para a lista
       
     } catch (error) {
       console.error(error);
@@ -105,7 +105,10 @@ export function FuncionarioForm() {
   const inputNormalClasses = "bg-white border-gray-200 text-texto-escuro placeholder-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white";
   const inputErrorClasses = "bg-red-50 border-red-300 text-red-900 placeholder-red-300 focus:ring-red-500";
   
+  // Labels: Azul no claro, Azul Claro no escuro para contraste
   const labelClasses = "text-sm font-bold text-azul-gs dark:text-blue-400 ml-1 mb-1 block transition-colors";
+  
+  // Títulos: Azul no claro, Branco no escuro
   const sectionTitleClasses = "text-xl font-bold text-azul-gs dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2 mb-6 mt-2 transition-colors";
 
   return (
@@ -199,24 +202,15 @@ export function FuncionarioForm() {
               {errors.idDepartamento && <p className="text-red-500 text-xs ml-1 mt-1">{errors.idDepartamento?.message}</p>}
             </div>
 
-            {/* Cargo (Agora Dropdown) */}
+            {/* Cargo */}
             <div>
               <label className={labelClasses}>Cargo</label>
-              <select
+              <input 
+                type="text" 
+                placeholder="Ex: Desenvolvedor Jr"
                 {...register("cargo")} 
                 className={`${inputBaseClasses} ${errors.cargo ? inputErrorClasses : inputNormalClasses}`} 
-                defaultValue=""
-              >
-                <option value="" disabled>Selecione o cargo...</option>
-                <option value="Data Scientist">Data Scientist</option>
-                <option value="Software Engineer">Software Engineer</option>
-                <option value="Customer Support">Customer Support</option>
-                <option value="Marketing Manager">Marketing Manager</option>
-                <option value="Project Manager">Project Manager</option>
-                <option value="HR Specialist">HR Specialist</option>
-                <option value="IT Admin">IT Admin</option>
-                <option value="Sales Associate">Sales Associate</option>
-              </select>
+              />
               {errors.cargo && <p className="text-red-500 text-xs ml-1 mt-1">{errors.cargo?.message}</p>}
             </div>
 
