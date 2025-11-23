@@ -94,7 +94,6 @@ export function Home() {
             </div>
 
             <div className="mt-20 bg-azul-gs dark:bg-blue-900 rounded-3xl p-10 md:p-16 text-center relative overflow-hidden shadow-2xl transition-colors">
-              
               <div className="relative z-10">
                 <h3 className="text-3xl md:text-4xl font-bold text-branco-gs mb-6">
                   Pronto para equilibrar sua rotina?
@@ -110,10 +109,8 @@ export function Home() {
                 </Link>
               </div>
             </div>
-
           </div>
         </section>
-
       </main>
       <Footer />
     </>
