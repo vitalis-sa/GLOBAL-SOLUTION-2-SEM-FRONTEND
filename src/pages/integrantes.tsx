@@ -7,7 +7,6 @@ import gustavoterada from '../assets/gustavoterada.jpeg'
 import joaoguilherme from '../assets/joaoguilherme.jpeg'
 
 export function Integrantes() {
-  // Dados dos integrantes para facilitar a renderização e manutenção
   const team = [
     {
       name: "Ana Flavia",
@@ -38,29 +37,27 @@ export function Integrantes() {
   return (
     <>
       <Header />
-      <main className="flex-grow bg-bg-clarinho min-h-screen py-16 px-4">
+      <main className="flex-grow bg-bg-clarinho dark:bg-gray-900 min-h-screen py-16 px-4 transition-colors duration-300">
         
-        {/* Cabeçalho da Seção */}
         <div className="max-w-7xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-azul-gs mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-azul-gs dark:text-white mb-4 transition-colors">
             Nosso <span className="text-amarelo-escuro-gs">Time</span>
           </h2>
-          <p className="text-texto-escuro/70 max-w-2xl mx-auto text-lg">
+          <p className="text-texto-escuro/70 dark:text-gray-300 max-w-2xl mx-auto text-lg transition-colors">
             As mentes por trás da Equilibrium, unindo tecnologia e saúde para transformar ambientes corporativos.
           </p>
         </div>
 
-        {/* Grid de Cards (Aumentado para max-w-7xl) */}
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-items-center">
           
           {team.map((member) => (
             <div 
               key={member.rm}
-              // Aumentado max-w para 380px
-              className="group flex flex-col w-full max-w-[380px] bg-branco-gs rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden border-t-4 border-amarelo-medio-gs"
+
+              className="group flex flex-col w-full max-w-[380px] bg-branco-gs dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden border-t-4 border-amarelo-medio-gs"
             >
-              {/* Container da Imagem aumentado para h-80 (320px) */}
-              <div className="w-full h-80 overflow-hidden">
+
+              <div className="w-full h-80 overflow-hidden bg-gray-200 dark:bg-gray-700">
                 <img 
                   className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110" 
                   src={member.image} 
@@ -68,19 +65,16 @@ export function Integrantes() {
                 />
               </div>
 
-              {/* Conteúdo do Card */}
               <div className="p-8 flex flex-col items-center flex-grow">
-                <h3 className="text-2xl font-bold text-azul-gs mb-1">
+                <h3 className="text-2xl font-bold text-azul-gs dark:text-white mb-1 transition-colors">
                   {member.name}
                 </h3>
-                <span className="text-amarelo-escuro-gs font-semibold text-base mb-4">
+                <span className="text-amarelo-escuro-gs dark:text-yellow-400 font-semibold text-base mb-4 transition-colors">
                   {member.class}
                 </span>
-                <p className="text-texto-escuro/60 text-sm font-mono bg-bg-escurinho px-4 py-1 rounded-full mb-8">
+                <p className="text-texto-escuro/60 dark:text-gray-300 text-sm font-mono bg-bg-escurinho dark:bg-gray-700 px-4 py-1 rounded-full mb-8 transition-colors">
                   {member.rm}
                 </p>
-
-                {/* Links Sociais */}
                 <div className="flex gap-6 mt-auto">
                   <a 
                     href={member.githubUrl} 
@@ -88,7 +82,7 @@ export function Integrantes() {
                     rel="noreferrer"
                     className="opacity-70 hover:opacity-100 hover:scale-110 transition-all"
                   >
-                    <img src={github} alt="GitHub" className="w-9 h-9" />
+                    <img src={github} alt="GitHub" className="w-9 h-9 dark:invert transition-all" />
                   </a>
                   <a 
                     href={member.linkedinUrl} 
@@ -96,7 +90,7 @@ export function Integrantes() {
                     rel="noreferrer"
                     className="opacity-70 hover:opacity-100 hover:scale-110 transition-all"
                   >
-                    <img src={linkedin} alt="LinkedIn" className="w-9 h-9" />
+                    <img src={linkedin} alt="LinkedIn" className="w-9 h-9 dark:invert transition-all" />
                   </a>
                 </div>
               </div>
