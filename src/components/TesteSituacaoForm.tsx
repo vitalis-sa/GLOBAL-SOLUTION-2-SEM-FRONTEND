@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { useTesteSituacao } from "../context/TesteSituacaoContext";
 import { useAuth } from "../context/AuthContext";
@@ -20,8 +20,24 @@ export function TesteSituacaoForm() {
     reset,
     setValue,
     formState: { errors, isSubmitting },
-  } = useForm<TesteSituacaoFormData>({
+  } = useForm({
     resolver: zodResolver(testeSituacaoSchema),
+    defaultValues: {
+
+      jobSatisfaction: undefined,
+      stressLevel: undefined,
+      productivityScore: undefined,
+      managerSupportScore: undefined,
+      workLifeScore: undefined,
+      careerGrowthScore: undefined,
+      sleepHours: undefined,
+      physicalActivity: undefined,
+      mentalHealthDaysOff: undefined,
+      teamSize: undefined,
+      mentalSupport: "No",
+      therapyAccess: "No",
+      salaryRange: "",
+    }
   });
 
   useEffect(() => {
@@ -30,11 +46,15 @@ export function TesteSituacaoForm() {
     }
   }, [user, setValue]);
 
-  async function onSubmit(data: TesteSituacaoFormData) {
+  const onSubmit: SubmitHandler<TesteSituacaoFormData> = async (data) => {
     try {
       if (!user) return;
       const payload = { ...data, idFuncionario: user.id };
+      
+      console.log("Enviando teste:", payload);
+      
       await saveTesteSituacao(payload);
+      
       alert("Teste de Situação registrado com sucesso!");
       reset();
       navigate(`/dashboard`); 
@@ -42,7 +62,7 @@ export function TesteSituacaoForm() {
       console.error(error);
       alert("Erro ao registrar teste.");
     }
-  }
+  };
 
   // Estilos Dark Mode
   const inputClass = "w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-texto-escuro dark:text-white focus:outline-none focus:border-blue-500 transition-colors";
@@ -78,32 +98,32 @@ export function TesteSituacaoForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Satisfação no Trabalho</label>
-            <input type="number" step="0.1" {...register("jobSatisfaction", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" step="0.1" {...register("jobSatisfaction", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 7.5" />
             {errors.jobSatisfaction && <p className={errorClass}>{errors.jobSatisfaction.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Nível de Estresse</label>
-            <input type="number" step="0.1" {...register("stressLevel", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" step="0.1" {...register("stressLevel", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 4.2" />
             {errors.stressLevel && <p className={errorClass}>{errors.stressLevel.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Produtividade</label>
-            <input type="number" step="0.1" {...register("productivityScore", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" step="0.1" {...register("productivityScore", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 8.0" />
             {errors.productivityScore && <p className={errorClass}>{errors.productivityScore.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Equilíbrio Vida-Trabalho</label>
-            <input type="number" step="0.1" {...register("workLifeScore", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" step="0.1" {...register("workLifeScore", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 6.5" />
             {errors.workLifeScore && <p className={errorClass}>{errors.workLifeScore.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Suporte da Gestão</label>
-            <input type="number" step="0.1" {...register("managerSupportScore", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" step="0.1" {...register("managerSupportScore", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 9.0" />
             {errors.managerSupportScore && <p className={errorClass}>{errors.managerSupportScore.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Crescimento na Carreira</label>
-            <input type="number" step="0.1" {...register("careerGrowthScore", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" step="0.1" {...register("careerGrowthScore", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 7.0" />
             {errors.careerGrowthScore && <p className={errorClass}>{errors.careerGrowthScore.message}</p>}
           </div>
         </div>
@@ -111,23 +131,23 @@ export function TesteSituacaoForm() {
         <h3 className={sectionTitle}>Saúde Física e Contexto</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className={labelClass}>Horas de Sono</label>
-            <input type="number" step="0.1" {...register("sleepHours", { valueAsNumber: true })} className={inputClass} />
+            <label className={labelClass}>Horas de Sono (média diária)</label>
+            <input type="number" step="0.1" {...register("sleepHours", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 7" />
             {errors.sleepHours && <p className={errorClass}>{errors.sleepHours.message}</p>}
           </div>
           <div>
-            <label className={labelClass}>Atividade Física (min/sem)</label>
-            <input type="number" step="0.1" {...register("physicalActivity", { valueAsNumber: true })} className={inputClass} />
+            <label className={labelClass}>Atividade Física (horas/sem)</label>
+            <input type="number" step="0.1" {...register("physicalActivity", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 5" />
             {errors.physicalActivity && <p className={errorClass}>{errors.physicalActivity.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Dias de Afastamento (ano)</label>
-            <input type="number" {...register("mentalHealthDaysOff", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" {...register("mentalHealthDaysOff", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 2" />
             {errors.mentalHealthDaysOff && <p className={errorClass}>{errors.mentalHealthDaysOff.message}</p>}
           </div>
           <div>
             <label className={labelClass}>Tamanho da Equipe</label>
-            <input type="number" {...register("teamSize", { valueAsNumber: true })} className={inputClass} />
+            <input type="number" {...register("teamSize", { valueAsNumber: true })} className={inputClass} placeholder="Ex: 5" />
             {errors.teamSize && <p className={errorClass}>{errors.teamSize.message}</p>}
           </div>
         </div>
@@ -155,12 +175,12 @@ export function TesteSituacaoForm() {
           <div>
             <label className={labelClass}>Faixa Salarial</label>
             <select {...register("salaryRange")} className={inputClass} defaultValue="">
-              <option value="" disabled>Selecione...</option>
-              <option value="<40K">Menos de 40k</option>
-              <option value="40-60K">40-60k</option>
-              <option value="60-80K">60-80k</option>
-              <option value="80-100K">80-100k</option>
-              <option value="100K>">Mais de 100k</option>
+              <option value="" disabled>Selecione a faixa...</option>
+              <option value="<40K">Menos de R$ 40.000</option>
+              <option value="40-60K">R$ 40.000 a R$ 60.000</option>
+              <option value="60-80K">R$ 60.000 a R$ 80.000</option>
+              <option value="80-100K">R$ 80.000 a R$ 100.000</option>
+              <option value="100K>">Acima de R$ 100.000</option>
             </select>
             {errors.salaryRange && <p className={errorClass}>{errors.salaryRange.message}</p>}
           </div>
