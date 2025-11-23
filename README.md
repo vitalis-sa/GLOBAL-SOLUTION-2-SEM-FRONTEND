@@ -2,6 +2,9 @@
 
 > **Status do Projeto:** 🚀 Deployado na nuvem
 
+* **Link do deploy do frontend:** [https://equilibrium-906663117168.us-central1.run.app/](https://equilibrium-906663117168.us-central1.run.app/)
+* **Link do deploy do backend:** [https://equilibrium-backend-906663117168.us-central1.run.app](https://equilibrium-backend-906663117168.us-central1.run.app)
+
 ## 📋 Sumário
 
 1. [Sobre o Projeto](#-sobre-o-projeto)
@@ -151,7 +154,7 @@ Como a aplicação está deployada na nuvem, basta acessar essa URL:
 
 ## 💻 Instalação e Execução Local
 
-Caso queira rodar o projeto em sua máquina:
+Caso queira rodar o projeto localmente em sua máquina:
 
 **Pré-requisitos:** Node.js (v18+) e NPM/Yarn.
 
@@ -191,7 +194,8 @@ Este projeto foi desenvolvido pela equipe **Vitalis** para a Global Solution (2�
 
 * **Repositório GitHub:** [https://github.com/vitalis-sa/GLOBAL-SOLUTION-2-SEM-FRONTEND/](https://github.com/vitalis-sa/GLOBAL-SOLUTION-2-SEM-FRONTEND/)
 * **Vídeo Demonstração:** [https://youtu.be/aNyjvwKZp7M](https://youtu.be/aNyjvwKZp7M)
-* **Link do deploy:** [https://equilibrium-906663117168.us-central1.run.app/](https://equilibrium-906663117168.us-central1.run.app/)
+* **Link do deploy do frontend:** [https://equilibrium-906663117168.us-central1.run.app/](https://equilibrium-906663117168.us-central1.run.app/)
+* **Link do deploy do backend:** [https://equilibrium-backend-906663117168.us-central1.run.app](https://equilibrium-backend-906663117168.us-central1.run.app)
 
 ---
 &copy; 2024 Equilibrium. Todos os direitos reservados.
