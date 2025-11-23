@@ -113,6 +113,10 @@ O Front-end se comunica com a API Java através das seguintes rotas principais:
 
 ## 🚀 Como Usar
 
+Como a aplicação está deployada na nuvem, basta acessar essa URL:
+
+* **Link do deploy:** [https://equilibrium-906663117168.us-central1.run.app/](https://equilibrium-906663117168.us-central1.run.app/)
+
 1.  **Login:** Acesse a plataforma e entre com seu CPF cadastrado.
 2.  **Novo funcionario:** Clique em "Novo Func." para cadastrar um novo funcionário.
 3.  **Meu Perfil:** Clique em meu Perfil para visualizar seus dados, assim como as recomendações pra sua saúde mental e seu burnoutScore.
@@ -187,6 +191,7 @@ Este projeto foi desenvolvido pela equipe **Vitalis** para a Global Solution (2�
 
 * **Repositório GitHub:** [https://github.com/vitalis-sa/GLOBAL-SOLUTION-2-SEM-FRONTEND/](https://github.com/vitalis-sa/GLOBAL-SOLUTION-2-SEM-FRONTEND/)
 * **Vídeo Demonstração:** [https://youtu.be/aNyjvwKZp7M](https://youtu.be/aNyjvwKZp7M)
+* **Link do deploy:** [https://equilibrium-906663117168.us-central1.run.app/](https://equilibrium-906663117168.us-central1.run.app/)
 
 ---
 &copy; 2024 Equilibrium. Todos os direitos reservados.
