@@ -5,17 +5,15 @@ import { Footer } from "../components/footer";
 
 export function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col bg-bg-clarinho font-sans">
+    <div className="min-h-screen flex flex-col bg-bg-clarinho dark:bg-gray-900 font-sans transition-colors duration-300">
       <Header />
-
-      {/* Main com flex-grow para ocupar o espaço e centralizar o card */}
       <main className="flex-grow flex items-center justify-center p-6">
-        
-        {/* Card centralizado com a identidade do projeto */}
-        <div className="max-w-lg w-full bg-branco-gs rounded-3xl shadow-2xl overflow-hidden p-10 md:p-14 text-center border-t-4 border-amarelo-medio-gs">
+
+        <div className="max-w-lg w-full bg-branco-gs dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden p-10 md:p-14 text-center border-t-4 border-amarelo-medio-gs transition-colors duration-300">
           
-          <h1 className="text-6xl font-extrabold text-azul-gs mb-2">404</h1>
-          <h2 className="text-xl font-semibold text-gray-500 mb-8 uppercase tracking-wide">
+          <h1 className="text-6xl font-extrabold text-azul-gs dark:text-white mb-2 transition-colors">404</h1>
+          
+          <h2 className="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-8 uppercase tracking-wide transition-colors">
             Página não encontrada
           </h2>
 
@@ -28,13 +26,13 @@ export function NotFound() {
             />
           </div>
 
-          <p className="text-texto-escuro text-lg mb-8 leading-relaxed">
+          <p className="text-texto-escuro dark:text-gray-300 text-lg mb-8 leading-relaxed transition-colors">
             Ops! Parece que você seguiu um link quebrado ou a página foi movida.
           </p>
 
           <Link
             to="/"
-            className="inline-block w-full sm:w-auto px-8 py-4 rounded-full bg-azul-gs text-white font-bold text-lg shadow-lg hover:bg-blue-900 hover:shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0"
+            className="inline-block w-full sm:w-auto px-8 py-4 rounded-full bg-azul-gs text-white font-bold text-lg shadow-lg hover:bg-blue-900 dark:hover:bg-blue-500 hover:shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0"
           >
             Voltar para o Início
           </Link>
